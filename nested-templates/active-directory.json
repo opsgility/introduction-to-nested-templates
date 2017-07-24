@@ -99,7 +99,6 @@
       "location": "[resourceGroup().location]",
       "apiVersion": "2016-03-30",
       "dependsOn": [
-        "Microsoft.Resources/deployments/VNet",
         "[resourceId('Microsoft.Network/publicIPAddresses', variables('adipName'))]"
       ],
       "tags": {
