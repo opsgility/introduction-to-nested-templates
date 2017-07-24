@@ -50,11 +50,7 @@
         "2012-R2-Datacenter",
 	      "2016-Datacenter"
       ]
-    },
-      "advmipDnsName": {
-          "type": "string",
-          "minLength": 1
-      }
+    }
   },
   "variables": {
     "VNETNAME": "OPSTrainingVNET",
@@ -207,10 +203,7 @@
               "displayName": "advmip"
           },
           "properties": {
-              "publicIPAllocationMethod": "Dynamic",
-              "dnsSettings": {
-                  "domainNameLabel": "[parameters('advmipDnsName')]"
-              }
+              "publicIPAllocationMethod": "Dynamic"
           }
       }
   ],
