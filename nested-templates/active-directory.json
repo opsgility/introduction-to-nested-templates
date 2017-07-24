@@ -50,7 +50,11 @@
         "2012-R2-Datacenter",
 	      "2016-Datacenter"
       ]
-    }
+    },
+      "advmipDnsName": {
+          "type": "string",
+          "minLength": 1
+      }
   },
   "variables": {
     "VNETNAME": "OPSTrainingVNET",
@@ -75,7 +79,8 @@
     "VM1scriptFileName": "deploy-ad.ps1",
     "VM1scriptParameters": "[concat(' -domain ', parameters('domainName'), ' -password ', parameters('adminPassword'))]",
     "DomainJoinscriptFileName": "domain-join.ps1",
-    "DomainJoinscriptParameters": "[concat(' -domain ', parameters('domainName'), ' -user ', parameters('adminUsername'), ' -password ', parameters('adminPassword'))]"
+    "DomainJoinscriptParameters": "[concat(' -domain ', parameters('domainName'), ' -user ', parameters('adminUsername'), ' -password ', parameters('adminPassword'))]",
+      "advmipName": "advmip"
   },
   "resources": [
     {
@@ -98,6 +103,7 @@
       "location": "[resourceGroup().location]",
       "apiVersion": "2016-03-30",
       "dependsOn": [
+          "[resourceId('Microsoft.Network/publicIPAddresses', variables('advmipName'))]"
       ],
       "tags": {
         "displayName": "ADVMNic"
@@ -110,7 +116,10 @@
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
                 "id": "[variables('ADVMSubnetRef')]"
-              }
+              },
+                "publicIPAddress": {
+                    "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('advmipName'))]"
+                }
             }
           }
         ]
@@ -187,7 +196,23 @@
           }
         }
       ]
-    }
+    },
+      {
+          "name": "[variables('advmipName')]",
+          "type": "Microsoft.Network/publicIPAddresses",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2016-03-30",
+          "dependsOn": [ ],
+          "tags": {
+              "displayName": "advmip"
+          },
+          "properties": {
+              "publicIPAllocationMethod": "Dynamic",
+              "dnsSettings": {
+                  "domainNameLabel": "[parameters('advmipDnsName')]"
+              }
+          }
+      }
   ],
     "outputs": {}
   }
