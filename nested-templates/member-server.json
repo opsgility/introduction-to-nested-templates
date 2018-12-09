@@ -67,7 +67,7 @@
     "MABSServerVM1ImagePublisher": "MicrosoftWindowsServer",
     "MABSServerVM1ImageOffer": "WindowsServer",
     "MABSServerVM1OSDiskName": "MABSServerVM1OSDisk",
-    "MABSServerVM1VmSize": "Standard_DS2_v2",
+    "MABSServerVM1VmSize": "Standard_D2S_v3",
     "MABSServerVM1VnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'OPSTrainingVNET')]",
     "MABSServerVM1SubnetRef": "[concat(variables('MABSServerVM1VnetID'), '/subnets/', variables('OPSTrainingVNETSubnet1Name'))]",
     "MABSServerVM1StorageAccountContainerName": "vhds",
